@@ -2,7 +2,7 @@ import boto3
 import csv
 from botocore.exceptions import ClientError
 
-
+# test
 """ COLLECT S3 BUCKET INVENTORY """
 def get_buckets():
     # list to store all of the output for the account

@@ -1,9 +1,6 @@
 import boto3
-from pprint import pprint as pp
 import csv
-import botocore
 from botocore.exceptions import ClientError
-from datetime import datetime
 from boto3.session import Session
 
 
@@ -15,6 +12,7 @@ def get_regions(service):
     return regions_list
 
 
+""" GENERATE A LIST OF ALL LAMBDAS"""
 def get_functions():
     # list to store all of the output for the account
     globallist = []
@@ -42,7 +40,6 @@ def get_functions():
                 #pp(data)
                 try:
                     config = client.get_function_configuration(FunctionName=function["FunctionName"])
-                    pp(config["Environment"])
                 except KeyError:
                     pass
                 globallist.append(data)
@@ -53,7 +50,6 @@ def get_functions():
 
 
 """ WRITE DATA TO CSV """
-
 def writetocsv(lambdainventory):
     # Prepare the CSV file
     outputfile = open("lambdainventory.csv", "w")

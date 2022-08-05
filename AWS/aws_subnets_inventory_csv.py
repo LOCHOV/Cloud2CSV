@@ -1,5 +1,4 @@
 import boto3
-from pprint import pprint as pp
 import csv
 from botocore.exceptions import ClientError
 from boto3.session import Session

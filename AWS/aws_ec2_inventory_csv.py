@@ -1,5 +1,4 @@
 import boto3
-from pprint import pprint as pp
 import csv
 from botocore.exceptions import ClientError
 from boto3.session import Session
@@ -73,7 +72,7 @@ def get_ec2_info():
                         print(instanceinfo)
         except ClientError:
             print("Failure when scanning: " + region)
-    #pp(globallist)
+    # print(globallist)
     return globallist
 
 

@@ -1,8 +1,6 @@
 import boto3
-from pprint import pprint as pp
 import csv
 from botocore.exceptions import ClientError
-from datetime import datetime
 from boto3.session import Session
 
 
@@ -34,17 +32,15 @@ def get_elbs():
                 elb_data["Type"] = elb["Type"]
                 elb_data["CreatedTime"] = str(elb["CreatedTime"])
                 elb_data["Account"] = account
-                pp(elb_data)
                 # attach everything to the globallist
                 globallist.append(elb_data)
         except ClientError:
             print("Failure when scanning: " + region)
-    # pp(globallist)
+    # print(globallist)
     return globallist
 
 
 """ WRITE DATA TO CSV """
-
 def writetocsv(elbinventory):
     # Prepare the CSV file
     outputfile = open("elbinventory.csv", "w")

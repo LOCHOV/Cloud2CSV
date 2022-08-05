@@ -114,7 +114,8 @@ def main():
     outputfile.close()
 
     """
-    This script section will convert the CSV file to excel, in case you dont want that, just delete this section.
+    This script section will convert the CSV file to excel, in case you dont want that, just delete this section
+    .
     """
     read_file = pd.read_csv(filename)
     read_file.to_excel("CISAWS_" + account + ".xlsx", index=None, header=True)

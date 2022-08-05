@@ -29,7 +29,7 @@ def get_data(id):
 # function to write the data to the csv file
 def writetocsv(data,id):
     cis_csv_report_name = "GCP_CIS_" + id + "_report.csv"
-    cis_csv_report_file = open("reports/" + cis_csv_report_name,"w")
+    cis_csv_report_file = open(cis_csv_report_name,"w")
     wr = csv.writer(cis_csv_report_file, quoting=csv.QUOTE_MINIMAL)
     wr.writerow(["Project-ID", "CIS-Check", "Severity", "ID", "Asset_Name", "Asset_Type", "Description", "Remediation","Status"])
     for item in data:

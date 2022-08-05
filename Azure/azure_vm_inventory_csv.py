@@ -11,7 +11,7 @@ from pprint import pprint as pp
 def auth():
     # Acquire a credential object using CLI-based authentication.
     credential = AzureCliCredential()
-    # API clients needed to collect cata
+    # API clients needed to collect data
     sub_client = SubscriptionClient(credential)
     return sub_client, credential
 
