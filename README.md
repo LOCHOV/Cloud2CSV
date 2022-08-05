@@ -8,14 +8,15 @@ You will find scripts to dump configuration data from your cloud environments an
 
   - **AWS**: 
       - read-only access to AWS via a IAM-Role (assume-role) or IAM-User
+      - Be logged in on your aws cli
       - https://aws.amazon.com/premiumsupport/knowledge-center/iam-assume-role-cli/
   
   - **GCP**: 
       - user or service account able to read from the SCC (Security Command Center)
+      - Be logged in on your gcloud cli
       - https://cloud.google.com/security-command-center/docs/how-to-programmatic-access
   
   - **Azure**: 
       - a user with its API keys or a Service Principal with "Reader" role or read access to Microsoft Defender for Cloud
+      - Be logged in on your az cli
       - https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
-
-       
