@@ -1,82 +1,71 @@
 import boto3
 import csv
-import AWS_config
 from botocore.exceptions import ClientError
-
-""" 
-This script helps collecting the ec2 instance public IPs from various AWS Account at once.
-It is required to have a role with read-access to EC2 in each of the accounts that is meant to be checked.
-Assume-Role should be possible from the server you are running this script from.
-"""
-
-# create a base session with the security credentials provided by awsconfig, then opens the STS client to assume role
-# the awsconfig script can be found on my Github also
-session = boto3.Session(
-    aws_access_key_id=AWS_config.aws_key,
-    aws_secret_access_key=AWS_config.aws_secret,
-    region_name="eu-central-1")
-sts_client = session.client('sts')
+from boto3.session import Session
 
 
-# Runs the API call to the ec2 endpoint to gather the data from the account
-def get_data(accountid):
+""" GENERATE A LIST OF ALL AVAILABLE REGIONS"""
+def get_regions(service):
+    # define regions to scan
+    regions_session = Session()
+    regions_list = regions_session.get_available_regions(service)
+    return regions_list
+
+
+"""COLLECT EC2 PUBLIC IP INVENTORY"""
+def get_IPs():
     # list to store all of the output for the account
-    rolename = "rolename" # replace with your roles name
-    globallist = []  # list to store all of the output for the account
-    rolearn = "arn:aws:iam::" + accountid + ":role/" + rolename
-    try:
-        assumed_role = sts_client.assume_role(RoleArn=rolearn, RoleSessionName="session1")
-    except ClientError:
-        print("Failed to assume role in " + accountid)
-        return None
-    credentials = assumed_role['Credentials'] # get temporary credentials & session token for the assumed role
-    # pass assumed role credentials to a new session
-    new_session = boto3.Session(
-        aws_access_key_id=credentials['AccessKeyId'],
-        aws_secret_access_key=credentials['SecretAccessKey'],
-        aws_session_token=credentials['SessionToken'],
-        region_name="eu-central-1")
+    globallist = []
 
-    # Create Client to collect data
+    # get account id
+    account = boto3.client('sts').get_caller_identity().get('Account')
 
-    client = new_session.client('ec2')
-    addresses_dict = client.describe_addresses() # runs the API Call to get all the findings
+    # scan each region for the assets
+    regions_list = get_regions('ec2')
+    for region in regions_list:
+        try:
+            print("checking " + region)
+            # Create Client to collect data
+            client = boto3.Session().client('ec2', region_name=region)
+            addresses_dict = client.describe_addresses()
 
-    for eip_dict in addresses_dict['Addresses']:
-        eip_data = {}
-        eip_data["IP"] = eip_dict['PublicIp'].strip()
-        eip_data["Account"] = accountid.strip()
-        # attach everything to the globallist
-        globallist.append(eip_data)  # appends each finding to the list of findings
+            for eip_dict in addresses_dict['Addresses']:
+                print(eip_dict)
+                eip_data = {}
+                try:
+                    eip_data["InstanceId"] = eip_dict['InstanceId'].strip()
+                except KeyError:
+                    eip_data["InstanceId"] = "none"
+                eip_data["IP"] = eip_dict['PublicIp'].strip()
+                eip_data["Account"] = account.strip()
+                eip_data["Region"] = region.strip()
+                # attach everything to the globallist
+                globallist.append(eip_data)
+            #print(globallist)
+        except ClientError:
+            print("Failure when scanning: " + region)
     return globallist
 
 
-# function to write the data to the csv file
-def writetocsv(accountsfile, wr):
-    account_counter = 0
-    print("running...")
-    for accountid in accountsfile:
-        account_counter += 1
-        outputdata = get_data(accountid.rstrip())
-        print("Account " + accountid.rstrip() + " done " + str(account_counter))
-        if outputdata:
-            # each line contains the dictionary of the single EC2s
-            for line in outputdata:
-                tmplist = []
-                for key, value in line.items():
-                    tmplist.append(value)
-                wr.writerow(tmplist)
-    print("Finished!")
+""" WRITE DATA TO CSV """
+def writetocsv(pubIpInventory):
+    # Prepare the CSV file
+    outputfile = open("ec2_public_ips.csv", "w")
+    fieldnames = ["IP", "Account","InstanceId","Region"]
+    wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
+    wr.writeheader()
+    # Write the data in
+    print("Writing to CSV...")
+    if pubIpInventory:
+        for line in pubIpInventory:
+            wr.writerow(line)
+        print("Finished!")
+    outputfile.close()
 
 
 def main():
-    accountsfile = open("accountlist.txt", "r") # specify your accounts list here
-    outputfile = open("publicIPs.csv", "w") # specify your output file here
-    wr = csv.writer(outputfile, quoting=csv.QUOTE_MINIMAL)
-    wr.writerow(["PublicIP", "AccountId"])
-    writetocsv(accountsfile, wr)
-    accountsfile.close()
-    outputfile.close()
+    pubIpInventory = get_IPs() # get the inventory
+    writetocsv(pubIpInventory) # write the output to CSV
 
 
 main()
