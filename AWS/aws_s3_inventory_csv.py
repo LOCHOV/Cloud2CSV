@@ -48,6 +48,7 @@ def writetocsv(s3inventory):
         print("Finished!")
     outputfile.close()
 
+
 def main():
     s3inventory = get_buckets() # get the s3 buckets
     writetocsv(s3inventory) # write the output to CSV
