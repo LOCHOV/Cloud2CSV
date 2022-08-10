@@ -1,21 +1,16 @@
-import json
 import csv
-import pprint as pp
 import os
 from typing import Iterable
 from google.cloud import compute_v1
 from googleapiclient import discovery
-from oauth2client.client import GoogleCredentials
-from google.oauth2 import service_account
-
 
 
 """ Login required with service principal or gcloud auth application-default login -> you need the json key """
 
+
 def get_zones(project_id):
-    #credentials = GoogleCredentials.get_application_default()
-    #credentials = service_account.Credentials.from_service_account_file('cred.json')
-    service = discovery.build('compute', 'v1')#, credentials=credentials)
+
+    service = discovery.build('compute', 'v1')
     request = service.zones().list(project=project_id)
     zone_list = []
     while request is not None:

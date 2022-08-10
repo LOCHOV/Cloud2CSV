@@ -1,8 +1,9 @@
 import boto3
 import csv
 from botocore.exceptions import ClientError
+from botocore.exceptions import NoCredentialsError
 
-# test
+
 """ COLLECT S3 BUCKET INVENTORY """
 def get_buckets():
     # list to store all of the output for the account
@@ -50,8 +51,11 @@ def writetocsv(s3inventory):
 
 
 def main():
-    s3inventory = get_buckets() # get the s3 buckets
-    writetocsv(s3inventory) # write the output to CSV
+    try:
+        s3inventory = get_buckets() # get the s3 buckets
+        writetocsv(s3inventory)  # write the output to CSV
+    except NoCredentialsError:
+        print("No credentials where found, make sure you are logged in with 'aws configure' or an assumed-role")
 
 
 if __name__ == "__main__":

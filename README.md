@@ -1,4 +1,4 @@
-# Public Cloud API Scripts
+# Public Cloud API Scripts - WORK IN PROGRESS
 
 Here you can find several public cloud API and CLI scripts for **AWS**, **GCP** and **Azure** cloud. Hope it might help you get some ideas :)
 

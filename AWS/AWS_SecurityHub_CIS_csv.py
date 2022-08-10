@@ -1,6 +1,5 @@
 import boto3
 import csv
-import AWS_config
 import botocore
 import botocore.exceptions
 import sys
