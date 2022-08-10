@@ -67,4 +67,6 @@ def main():
     zones = get_zones(project)
     vm_inventory = list_instances(project,zones)
     writetocsv(vm_inventory)
-main()
+
+if __name__ == "__main__":
+    main()

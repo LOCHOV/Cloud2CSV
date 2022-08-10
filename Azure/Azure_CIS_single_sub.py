@@ -108,5 +108,6 @@ def main():
         print("---Authentication error when getting the access_token---")
 
 
-main()
+if __name__ == "__main__":
+    main()
 

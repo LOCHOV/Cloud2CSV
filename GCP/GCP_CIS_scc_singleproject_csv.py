@@ -83,4 +83,5 @@ def main():
     print("--- cis_temp.json deleted ---")
 
 
-main()
+if __name__ == "__main__":
+    main()

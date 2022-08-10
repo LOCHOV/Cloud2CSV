@@ -60,4 +60,5 @@ def main():
     elbinventory = get_elbs() # get the inventory
     writetocsv(elbinventory) # write the output to CSV
 
-main()
+if __name__ == "__main__":
+    main()

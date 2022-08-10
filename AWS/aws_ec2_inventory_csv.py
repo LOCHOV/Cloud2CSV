@@ -96,6 +96,6 @@ def main():
     ec2inventory = get_ec2_info() # get the inventory
     writetocsv(ec2inventory) # write the output to CSV
 
-main()
-
+if __name__ == "__main__":
+    main()
 

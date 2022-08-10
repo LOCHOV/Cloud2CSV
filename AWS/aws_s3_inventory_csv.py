@@ -54,4 +54,5 @@ def main():
     writetocsv(s3inventory) # write the output to CSV
 
 
-main()
+if __name__ == "__main__":
+    main()

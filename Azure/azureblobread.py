@@ -39,4 +39,5 @@ def main():
         list_container(args.container_url)
 
 
-main()
+if __name__ == "__main__":
+    main()

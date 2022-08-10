@@ -59,5 +59,7 @@ def main():
     subnetinventory = get_subnets() # get the inventory
     writetocsv(subnetinventory) # write the output to CSV
 
-main()
+
+if __name__ == "__main__":
+    main()
 

@@ -69,4 +69,5 @@ def main():
     lambdainventory = get_functions() # get the inventory
     writetocsv(lambdainventory) # write the output to CSV
 
-main()
+if __name__ == "__main__":
+    main()

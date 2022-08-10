@@ -68,4 +68,5 @@ def main():
     writetocsv(pubIpInventory) # write the output to CSV
 
 
-main()
+if __name__ == "__main__":
+    main()

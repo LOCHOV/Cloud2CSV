@@ -110,7 +110,8 @@ def main():
     writetocsv(vm_inventory)
 
 
-main()
+if __name__ == "__main__":
+    main()
 
 
 
