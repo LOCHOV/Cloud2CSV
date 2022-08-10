@@ -12,11 +12,11 @@ You will find scripts to dump configuration data from your cloud environments an
       - https://aws.amazon.com/premiumsupport/knowledge-center/iam-assume-role-cli/
   
   - **GCP**: 
-      - user or service account able to read from the SCC (Security Command Center)
+      - user or service account with read permissions to the service you want to scan
       - Be logged in on your gcloud cli
       - https://cloud.google.com/security-command-center/docs/how-to-programmatic-access
   
   - **Azure**: 
-      - a user with its API keys or a Service Principal with "Reader" role or read access to Microsoft Defender for Cloud
+      - a user with its API keys or a Service Principal with "Reader" role
       - Be logged in on your az cli
       - https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
