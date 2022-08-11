@@ -6,18 +6,15 @@ Here you can find several public cloud API scripts for **AWS**, **GCP** and **Az
 ### CLI Requirements:
 
   - **AWS**: 
-      - read-only access to AWS via a IAM-Role (assume-role) or IAM-User
-      - Be logged in on your aws cli
+      - read-only access to AWS via a IAM-Role (assume-role) or IAM-User. Login to aws cli
       - https://aws.amazon.com/premiumsupport/knowledge-center/iam-assume-role-cli/
   
   - **GCP**: 
-      - user or service account with read permissions to the service you want to scan
-      - Be logged in on your gcloud cli
+      - user or service account with read permissions to the service you want to scan. Login to gcloud cli.
       - https://cloud.google.com/security-command-center/docs/how-to-programmatic-access
   
   - **Azure**: 
-      - a user with its API keys or a Service Principal with "Reader" role
-      - Be logged in on your az cli
+      - a user with its API keys or a Service Principal with "Reader" role. Login to az cli.
       - https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
 
 ### Required Packages:
