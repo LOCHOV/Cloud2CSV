@@ -1,10 +1,9 @@
-# Public Cloud API Scripts - WORK IN PROGRESS
+# Public Cloud API Scripts 
+## This project is still work in progress and some functions might not be fully functioning yet...
 
-Here you can find several public cloud API and CLI scripts for **AWS**, **GCP** and **Azure** cloud. Hope it might help you get some ideas :)
+Here you can find several public cloud API scripts for **AWS**, **GCP** and **Azure** cloud. These scripts are mainly oriented to listing cloud resources into CSV/XLSX files in order to gain quick insights into your assets.
 
-You will find scripts to dump configuration data from your cloud environments and generate CSV/XLSX reports. You can export the following data with help of them.  
-
-## Technical requirements:
+### CLI Requirements:
 
   - **AWS**: 
       - read-only access to AWS via a IAM-Role (assume-role) or IAM-User
@@ -20,3 +19,7 @@ You will find scripts to dump configuration data from your cloud environments an
       - a user with its API keys or a Service Principal with "Reader" role
       - Be logged in on your az cli
       - https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
+
+### Required Packages:
+You can install the required python packages automatically via:
+```pip3 install -r requirements.txt```
