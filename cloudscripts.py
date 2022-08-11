@@ -72,6 +72,8 @@ def main():
     options_azure = ["Azure_Read_Exposed_Blob_Anonymously", "Azure_VM_instances",
                      "Azure_Microsoft_Defender_CIS_Findings"]
     options_gcp = ["GCP_Security_Command_Center_CIS_Findings", "GCP_VM_Instances"]
+
+    """ The message is splitted in two parts as a list in order to be able to chose one"""
     message = ['Allowed values are:\n\n------ AWS ------\n' + '\n'.join(options_aws) \
                + "\n\n------ Azure ------\n" + '\n'.join(options_azure) \
                + "\n\n------ GCP ------\n" + '\n'.join(options_gcp),
@@ -79,7 +81,7 @@ def main():
 
     """ Argument Parser """
     parser = argparse.ArgumentParser(description='List the content of a folder', formatter_class=RawTextHelpFormatter)
-    parser.add_argument('-s', '--script', dest="arg_value", metavar='', type=str, help=message)
+    parser.add_argument('-s', '--script', dest="arg_value", metavar='', type=str, help=message[0])
     args = parser.parse_args()
     user = user_selection(args.arg_value, message)  # Add the value to the user class
 
@@ -91,7 +93,7 @@ def main():
     elif "GCP_" in args.arg_value:
         user.gcp_selected()
     else:
-        print(message[1]+message[0])
+        print(message[1] + message[0])
 
 
 main()
