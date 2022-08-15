@@ -30,7 +30,7 @@ def get_subnets():
                 subnetdata = {}
                 subnetdata["SubnetCIDR"] = subnet["CidrBlock"]
                 subnetdata["AccountID"] = subnet["OwnerId"]
-                subnetdata["ARN"] =  subnet['SubnetArn']
+                subnetdata["ARN"] = subnet['SubnetArn']
                 subnetdata["Region"] = region
                 globallist.append(subnetdata)
                 print(subnetdata)
@@ -62,4 +62,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
