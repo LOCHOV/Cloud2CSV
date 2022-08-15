@@ -43,5 +43,5 @@ Example: ```python3 cloudscripts.py -s AWS_S3_Buckets```
     - ``Azure_VM_instances`` lists all VM instances in **all**  subscriptions available. To check which are available, run ``az account list``
 
   - **GCP**: 
-    - ``GCP_VM_Instances`` lists all VM instances in **one** project. To check whichare available, run ``gcloud projects list``
+    - ``GCP_VM_Instances`` lists all VM instances in **one** project and **one** or **all** regions. To check whichare available, run ``gcloud projects list``
 
