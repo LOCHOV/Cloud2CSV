@@ -65,7 +65,7 @@ def main():
 
     """ The message is splitted in two parts as a list in order to be able to chose one"""
     message = ["Module was not found. Maybe it is misspelled or I just didn't have time to develop it yet :)\n",
-               "Allowed values for -s, --script\n\n",
+               "Allowed values for -m, --module\n\n",
                '------ AWS ------\n' + '\n'.join(options_aws) \
                + "\n\n------ Azure ------\n" + '\n'.join(options_azure) \
                + "\n\n------ GCP ------\n" + '\n'.join(options_gcp)
@@ -74,8 +74,8 @@ def main():
     wrong_selection_message = message[0] + message[1] + message[2]
 
     """ Argument Parser """
-    parser = argparse.ArgumentParser(description='List the content of a folder', formatter_class=RawTextHelpFormatter)
-    parser.add_argument('-s', '--script', dest="arg_value", metavar='', type=str, help=help_message)
+    parser = argparse.ArgumentParser(description='Select the script to be run', formatter_class=RawTextHelpFormatter)
+    parser.add_argument('-m', '--module', dest="arg_value", metavar='', type=str, help=help_message)
     args = parser.parse_args()
     user = user_selection(args.arg_value, wrong_selection_message)  # Add the value to the user class
 

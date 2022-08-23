@@ -29,15 +29,16 @@ def list_container(url):
 
 def main():
     # argument parser
-    parser = argparse.ArgumentParser(description='Anonymous Access test to Container and Blob Storages')
-    parser.add_argument("-c", dest='container_url', help="specify container URL to list the blobs in the container", type=str, action="store")
-    parser.add_argument("-b", dest='blob_url', help="specify blob URL to download the blob file", type=str, action="store")
-    args = parser.parse_args()
-    if args.blob_url:
-        download_blob(args.blob_url)
-    if args.container_url:
-        list_container(args.container_url)
+    type = input("Are you testing access to a blob (b/B) or a container (c/C)? ")
+    url = input("Please specify the URL endpoint for the asset: ")
 
-    print("okok")
+    if type == "c" or type == "C":
+        list_container(url)
+    elif type == "b" or type == "B":
+        download_blob(url)
+    else:
+        print("Input for URL or container/blob was wrong. Please retry")
+
+
 if __name__ == "__main__":
     main()

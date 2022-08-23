@@ -25,10 +25,10 @@ You can install the required python packages automatically via:
 ### Usage
 The main script can be run with ```python3 cloudscripts.py```  
 Get help: ```-h``` or ```--help```  
-Specify the module to run: ```-s``` or ``--script``  
+Specify the module to run: ```-m``` or ``--module``  
 Example: ```python3 cloudscripts.py -s AWS_S3_Buckets```
 
-### Modules available ``-s or --script``:
+### Modules available ``-m or --module``:
 
   - **AWS**:  
     - ``AWS_EC2_Instances`` lists all EC2 instances in the logged in account  
