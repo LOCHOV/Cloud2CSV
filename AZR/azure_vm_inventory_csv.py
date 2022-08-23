@@ -91,7 +91,7 @@ def get_VMs(auth_data):
 """ WRITE DATA TO CSV """
 def writetocsv(vminventory):
     # Prepare the CSV file
-    outputfile = open("AzureVMs.csv", "w")
+    outputfile = open("Reports/AzureVMs.csv", "w")
     fieldnames = ["Name", "ID", "Sub_Name", "Sub_ID", "RSG", "AvZone", "privIP", "pubIP", "Image"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()
