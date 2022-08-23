@@ -105,7 +105,7 @@ def writetocsv(accountid, wr):
 
 def main():
     account = sys.argv[1]
-    filename = "CISAWS_" + account + ".csv"
+    filename = "Reports/CISAWS_" + account + ".csv"
     outputfile = open(filename, "w")
     wr = csv.writer(outputfile, quoting=csv.QUOTE_MINIMAL)
     wr.writerow(["Account","Result","Title","Date","Description","Severity","Resource","Remediation","Standard","Status"])

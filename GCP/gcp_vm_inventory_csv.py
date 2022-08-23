@@ -50,7 +50,7 @@ def list_instances(project_id, zones) -> Iterable[compute_v1.Instance]:
 
 def writetocsv(vm_inventory):
     # Prepare the CSV file
-    outputfile = open("gcpinventory.csv", "w")
+    outputfile = open("Reports/gcpinventory.csv", "w")
     fieldnames = ["Name", "Zone", "Created", "Project", "privIP"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()

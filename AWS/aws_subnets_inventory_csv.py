@@ -42,7 +42,7 @@ def get_subnets():
 """ WRITE DATA TO CSV """
 def writetocsv(subnetinventory):
     # Prepare the CSV file
-    outputfile = open("subnetinventory.csv", "w")
+    outputfile = open("Reports/subnetinventory.csv", "w")
     fieldnames = ["SubnetCIDR", "AccountID", "ARN", "Region"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()

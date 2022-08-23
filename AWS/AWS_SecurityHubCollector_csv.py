@@ -83,7 +83,7 @@ def writetocsv(accountsfile, wr):
 
 
 def main():
-    accountsfile = open("accountlist.txt", "r") # specify your accounts list here
+    accountsfile = open("Reports/accountlist.txt", "r") # specify your accounts list here
     outputfile = open("SecurityHubResults.csv", "w") # specify your output file here
     wr = csv.writer(outputfile, quoting=csv.QUOTE_MINIMAL)
     wr.writerow(["Account","Result","Title","Date","Description","Severity","Resource","Remediation","Standard"])

@@ -79,7 +79,7 @@ def get_ec2_info():
 """ WRITE DATA TO CSV """
 def writetocsv(ec2inventory):
     # Prepare the CSV file
-    outputfile = open("ec2inventory.csv", "w")
+    outputfile = open("Reports/ec2inventory.csv", "w")
     fieldnames = ["AWS Name", "InstanceID", "IP Address", "State", "Availability Zone", "AccountID", "AWS Private FQDN"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()

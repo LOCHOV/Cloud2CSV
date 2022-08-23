@@ -43,7 +43,7 @@ def get_elbs():
 """ WRITE DATA TO CSV """
 def writetocsv(elbinventory):
     # Prepare the CSV file
-    outputfile = open("elbinventory.csv", "w")
+    outputfile = open("Reports/elbinventory.csv", "w")
     fieldnames = ["Account", "CreatedTime", "DNSName", "State", "Type"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()

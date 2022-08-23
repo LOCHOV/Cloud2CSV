@@ -50,7 +50,7 @@ def get_IPs():
 """ WRITE DATA TO CSV """
 def writetocsv(pubIpInventory):
     # Prepare the CSV file
-    outputfile = open("ec2_public_ips.csv", "w")
+    outputfile = open("Reports/ec2_public_ips.csv", "w")
     fieldnames = ["IP", "Account","InstanceId","Region"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()

@@ -37,7 +37,7 @@ def get_buckets():
 def writetocsv(s3inventory):
     
     # Prepare the CSV file
-    outputfile = open("s3buckets.csv", "w")
+    outputfile = open("Reports/s3buckets.csv", "w")
     fieldnames = ["Name", "CreationDate", "Location", "AccountID"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()

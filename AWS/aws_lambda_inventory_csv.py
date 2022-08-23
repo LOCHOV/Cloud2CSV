@@ -52,7 +52,7 @@ def get_functions():
 """ WRITE DATA TO CSV """
 def writetocsv(lambdainventory):
     # Prepare the CSV file
-    outputfile = open("lambdainventory.csv", "w")
+    outputfile = open("Reports/lambdainventory.csv", "w")
     fieldnames = ["Name", "ARN", "Runtime", "Account"]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()
