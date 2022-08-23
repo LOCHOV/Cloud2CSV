@@ -41,7 +41,7 @@ Example: ```python3 cloudscripts.py -s AWS_S3_Buckets```
   - **Azure**: 
     - ``Azure_Read_Exposed_Blob_Anonymously`` Tests anonymous access to an exposed Blob or Container via it´s URL.
     - ``Azure_VM_instances`` lists all VM instances in **all**  subscriptions available. To check which are available, run ``az account list``
-
+    - ``Azure_SecurityAlerts`` lists all security alerts associated to **all** subscriptions available.
   - **GCP**: 
     - ``GCP_VM_Instances`` lists all VM instances in **one** project and **one** or **all** regions. To check whichare available, run ``gcloud projects list``
 
