@@ -24,7 +24,7 @@ def list_container(url):
     for blob in container.list_blobs():
         blob_list.append(blob)
     for item in blob_list:
-        print(item["name"])
+        print(url + "/" + item["name"]+"\n")
 
 
 def main():
