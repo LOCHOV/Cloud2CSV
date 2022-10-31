@@ -1,5 +1,5 @@
 # Cloud2CSV
-## This project is still work in progress and some functions might not be fully functioning yet...
+#### Collection of cloud API scripts to collect data from your cloud environments to CSV files
 
 Here you can find several public cloud API scripts for **AWS**, **GCP** and **Azure** cloud. These scripts are mainly oriented to listing cloud resources into CSV/XLSX files in order to gain quick insights into your assets.
 
