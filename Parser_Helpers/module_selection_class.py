@@ -5,28 +5,28 @@ class user_selection:
 
     def aws_selected(self):
         print("You selected: " + self.script)
-        if self.script == "AWS_EC2_Instances":
+        if self.script == "a1":
             import AWS.aws_ec2_inventory_csv
             AWS.aws_ec2_inventory_csv.main()
-        elif self.script == "AWS_EC2_Public_IPs":
+        elif self.script == "a2":
             import AWS.aws_ec2_publicip_inventory_csv
             AWS.aws_ec2_publicip_inventory_csv.main()
-        elif self.script == "AWS_EC2_ELB":
+        elif self.script == "a3":
             import AWS.aws_elb_inventory_csv
             AWS.aws_elb_inventory_csv.main()
-        elif self.script == "AWS_Lambda_Functions":
+        elif self.script == "a4":
             import AWS.aws_lambda_inventory_csv
             AWS.aws_lambda_inventory_csv.main()
-        elif self.script == "AWS_S3_Buckets":
+        elif self.script == "a5":
             import AWS.aws_s3_inventory_csv
             AWS.aws_s3_inventory_csv.main()
-        elif self.script == "AWS_SecurityHub_CIS_Findings":
+        elif self.script == "a6":
             import AWS.AWS_SecurityHub_CIS_csv
             AWS.AWS_SecurityHub_CIS_csv.main()
-        elif self.script == "AWS_SecurityHub_All_Findings":
+        elif self.script == "a7":
             import AWS.AWS_SecurityHubCollector_csv
             AWS.AWS_SecurityHubCollector_csv.main()
-        elif self.script == "AWS_VPC_Subnets":
+        elif self.script == "a8":
             import AWS.aws_subnets_inventory_csv
             AWS.aws_subnets_inventory_csv.main()
         else:
@@ -34,13 +34,13 @@ class user_selection:
 
     def azure_selected(self):
         print("You selected: " + self.script)
-        if self.script == "Azure_VM_instances":
+        if self.script == "m1":
             import AZR.azure_vm_inventory_csv
             AZR.azure_vm_inventory_csv.main()
-        elif self.script == "Azure_Read_Exposed_Blob_Anonymously":
+        elif self.script == "m2":
             import AZR.azureblobread
             AZR.azureblobread.main()
-        elif self.script == "Azure_SecurityAlerts":
+        elif self.script == "m3":
             import AZR.azure_securityalerts_csv
             AZR.azure_securityalerts_csv.main()
         else:
@@ -48,7 +48,7 @@ class user_selection:
 
     def gcp_selected(self):
         print("You selected: " + self.script)
-        if self.script == "GCP_VM_Instances":
+        if self.script == "g1":
             import GCP.gcp_vm_inventory_csv
             GCP.gcp_vm_inventory_csv.main()
         else:

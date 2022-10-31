@@ -2,7 +2,7 @@ import argparse
 from argparse import RawTextHelpFormatter
 from Parser_Helpers.module_selection_class import user_selection
 import Parser_Helpers.modules as modules
-#test
+
 
 def main():
     """ The message is splitted in two parts as a list in order to be able to chose one"""
@@ -16,7 +16,7 @@ def main():
     wrong_selection_message = message[0] + message[1] + message[2]
 
     """ Argument Parser """
-    parser = argparse.ArgumentParser(description='Select the script to be run', formatter_class=RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description='Select the script by its id (e.g. a1 or m2)', formatter_class=RawTextHelpFormatter)
     parser.add_argument('-m', '--module', dest="arg_value", metavar='', type=str, help=help_message)
     args = parser.parse_args()
     selection = user_selection(args.arg_value, wrong_selection_message)  # Add the value to the user class
@@ -24,11 +24,11 @@ def main():
     # Run Script based on the provided value
     if not args.arg_value:
         print(wrong_selection_message)
-    elif "AWS_" in args.arg_value:
+    elif "a" in args.arg_value:
         selection.aws_selected()
-    elif "Azure_" in args.arg_value:
+    elif "m" in args.arg_value:
         selection.azure_selected()
-    elif "GCP_" in args.arg_value:
+    elif "g" in args.arg_value:
         selection.gcp_selected()
     else:
         print(wrong_selection_message)
