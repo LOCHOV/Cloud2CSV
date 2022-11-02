@@ -10,8 +10,9 @@ options_aws = [
     "a8 - AWS_VPC_Subnets"]
 
 options_azure = [
-    "m1 - Azure_Read_Exposed_Blob_Anonymously",
-    "m2 - Azure_VM_instances",
+
+    "m1 - Azure_VM_instances",
+    "m2 - Azure_Read_Exposed_Blob_Anonymously",
     "m3 - Azure_SecurityAlerts"
 ]
 
