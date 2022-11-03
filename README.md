@@ -42,9 +42,10 @@ Individual scripts can also be found on the corresponding folder (AWS, AZR, GCP)
     - ``a6 - AWS_VPC_Subnets`` enumerates all VPC subnets
 
   - **Microsoft Azure**: 
-    - ``m1 - Azure_Read_Exposed_Blob_Anonymously`` Tests anonymous access to an exposed Blob or Container via it´s URI/URL.
+    - ``m1 - Azure_Read_Exposed_Container_Anonymously`` Tests anonymous access to an exposed Blob or Container via it´s URI/URL.
     - ``m2 - Azure_VM_instances`` lists all VM instances in **all** subscriptions available. To check which are available, run ``az account list``
     - ``m3 - Azure_SecurityAlerts`` lists all security alerts associated to **all** subscriptions available.
+    - ``m4 - Azure_VM_Encryption`` checks all Subscriptions and VMs available for the ADE (Azure Disk Encryption) and EncryptionAtHost features.
     
   - **Google Cloud Platform**: 
     - ``g1 - GCP_VM_Instances`` lists all VM instances in **one** project and **one** or **all** regions. To check whichare available, run ``gcloud projects list``

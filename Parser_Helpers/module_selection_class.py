@@ -38,11 +38,14 @@ class user_selection:
             import AZR.azure_vm_inventory_csv
             AZR.azure_vm_inventory_csv.main()
         elif self.script == "m2":
-            import AZR.azureblobread
-            AZR.azureblobread.main()
+            import AZR.azure_container_check
+            AZR.azure_container_check.main()
         elif self.script == "m3":
             import AZR.azure_securityalerts_csv
             AZR.azure_securityalerts_csv.main()
+        elif self.script == "m4":
+            import AZR.azure_vm_encryption_csv
+            AZR.azure_vm_encryption_csv.main()
         else:
             print(self.message)
 

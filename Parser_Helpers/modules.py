@@ -13,7 +13,8 @@ options_azure = [
 
     "m1 - Azure_VM_instances",
     "m2 - Azure_Read_Exposed_Blob_Anonymously",
-    "m3 - Azure_SecurityAlerts"
+    "m3 - Azure_SecurityAlerts",
+    "m4 - Azure_vm_encryption"
 ]
 
 options_gcp = [

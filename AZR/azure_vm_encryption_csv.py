@@ -18,6 +18,7 @@ def encryption_at_host(credential, sub_client):
 
     cmd = "az feature show --name EncryptionAtHost --namespace Microsoft.Compute"
     for sub in sub_client.subscriptions.list():
+        counter = 0
         sub_id = sub.subscription_id.strip()
         subprocess.run('az account set --subscription ' + sub_id, shell=True)
         output = json.loads(subprocess.check_output(cmd, shell=True).decode('utf-8'))
@@ -31,7 +32,10 @@ def encryption_at_host(credential, sub_client):
             else:
                 vmdata = [sub_id, vm.name, "False"]
             writer_vms.writerow(vmdata)
-        print(sub_id)
+        counter += 1
+        print(str(counter) + "   " + sub_id)
+
+
 def azure_disk_encryption(credential,sub_client):
     output_file = open("Reports/ADE_overview_VMs.csv", "w")
     writer = csv.writer(output_file)
@@ -61,6 +65,7 @@ def main():
     encryption_at_host(credential,sub_client)
     print("Checking each VM in each Subscription for the 'Azure Disk Encryption' feature")
     azure_disk_encryption(credential,sub_client)
+
 
 if __name__ == "__main__":
     main()
