@@ -1,8 +1,5 @@
 from azure.storage.blob import BlobClient
 from azure.storage.blob import ContainerClient
-from azure.storage.blob import BlobServiceClient
-import sys
-import argparse
 
 
 """ download file from the publicly facing blob """
@@ -28,7 +25,7 @@ def list_container(url):
 
 
 def main():
-    # argument parser
+
     type = input("Are you testing access to a blob (b/B) or a container (c/C)? ")
     url = input("Please specify the URL endpoint for the asset: ")
 

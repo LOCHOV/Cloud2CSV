@@ -1,22 +1,22 @@
 """ Define the options and the help message for the argparser """
-options_aws = [
-    "a1 - AWS_EC2_Instances",
-    "a2 - AWS_EC2_Public_IPs",
-    "a3 - AWS_EC2_ELB",
-    "a4 - AWS_Lambda_Functions",
-    "a5 - AWS_S3_Buckets",
-    "a6 - AWS_SecurityHub_CIS_Findings",
-    "a7 - AWS_SecurityHub_All_Findings",
-    "a8 - AWS_VPC_Subnets"]
+aws = [
+    "a1 -> AWS EC2 Instances Enumerator",
+    "a2 -> AWS EC2 public IPs Enumerator",
+    "a3 -> AWS EC2 ELB Enumerator",
+    "a4 -> AWS Lambda Functions Enumerator",
+    "a5 -> AWS S3 Bucket Enumerator",
+    "a6 -> AWS SecurityHub CIS Findings Listing",
+    "a7 -> AWS SecurityHub All Findings Listing",
+    "a8 -> AWS VPC Subnets Enumerator"]
 
-options_azure = [
+azure = [
 
-    "m1 - Azure_VM_instances",
-    "m2 - Azure_Read_Exposed_Blob_Anonymously",
-    "m3 - Azure_SecurityAlerts",
-    "m4 - Azure_vm_encryption"
+    "m1 -> Azure VM Instances Enumerator",
+    "m2 -> Azure Blob/Container Storage Anonymous Access Tester",
+    "m3 -> Azure Security Alerts Listing",
+    "m4 -> Azure VM Encryption Enumerator"
 ]
 
-options_gcp = [
-    "g1 - GCP_VM_Instances"
+gcp = [
+    "g1 -> GCP VM Instances Enumerator"
 ]

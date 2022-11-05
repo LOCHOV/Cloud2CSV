@@ -1,10 +1,13 @@
+from Parser_Helpers.title import title
+
+
 class user_selection:
     def __init__(self, script, message):
         self.script = script
         self.message = message
 
     def aws_selected(self):
-        print("You selected: " + self.script)
+        title(self.script, "aws")
         if self.script == "a1":
             import AWS.aws_ec2_inventory_csv
             AWS.aws_ec2_inventory_csv.main()
@@ -33,7 +36,7 @@ class user_selection:
             print(self.message)
 
     def azure_selected(self):
-        print("You selected: " + self.script)
+        title(self.script, "azure")
         if self.script == "m1":
             import AZR.azure_vm_inventory_csv
             AZR.azure_vm_inventory_csv.main()
@@ -50,7 +53,7 @@ class user_selection:
             print(self.message)
 
     def gcp_selected(self):
-        print("You selected: " + self.script)
+        title(self.script, "gcp")
         if self.script == "g1":
             import GCP.gcp_vm_inventory_csv
             GCP.gcp_vm_inventory_csv.main()
