@@ -34,18 +34,21 @@ Individual scripts can also be found on the corresponding folder (AWS, AZR, GCP)
 ### Modules available ``-m or --module``:
 
   - **Amazon Web Services**:  
-    - ``a1 - AWS_EC2_Instances`` enumerates all EC2 instances and relevant info
-    - ``a2 - AWS_EC2_Public_IPs`` enumerates all public IPs associated to EC2 instances  
-    - ``a3 - AWS_EC2_ELB``enumerates all Elastic Load Balancers
-    - ``a4 - AWS_Lambda_Functions`` enumerates all Lambda Functions  
-    - ``a5 - AWS_S3_Buckets`` enumerates all S3-Buckets and relevant info
-    - ``a6 - AWS_VPC_Subnets`` enumerates all VPC subnets
+    - ``a1 -> AWS EC2 Instances Enumerator`` enumerates all EC2 instances and relevant info
+    - ``a2 -> AWS EC2 public IPs Enumerator`` enumerates all public IPs associated to EC2 instances  
+    - ``a3 -> AWS EC2 ELB Enumerator``enumerates all Elastic Load Balancers
+    - ``a4 -> AWS Lambda Functions Enumerator`` enumerates all Lambda Functions  
+    - ``a5 -> AWS S3 Bucket Enumerator`` enumerates all S3-Buckets and relevant info
+    - ``a6 -> AWS SecurityHub CIS Findings Listing`` lists all CIS findings from the SecurityHub Service
+    - ``a7 -> AWS SecurityHub All Findings Listing`` lists all findings of any standard from the SecurityHub Service
+    - ``a8 -> AWS VPC Subnets Enumerator`` enumerates all VPC subnets
+    
 
   - **Microsoft Azure**: 
-    - ``m1 - Azure_Read_Exposed_Container_Anonymously`` Tests anonymous access to an exposed Blob or Container via it´s URI/URL.
-    - ``m2 - Azure_VM_instances`` lists all VM instances in **all** subscriptions available. 
-    - ``m3 - Azure_SecurityAlerts`` lists all security alerts associated to **all** subscriptions available.
-    - ``m4 - Azure_VM_Encryption`` checks all Subscriptions and VMs available for the ADE (Azure Disk Encryption) and EncryptionAtHost features.
+    - ``m1 -> Azure VM Instances Enumerator`` lists all VM instances in **all** subscriptions available. 
+    - ``m2 -> Azure Blob/Container Storage Anonymous Access Tester`` tests anonymous access to an exposed Blob or Container via it´s URI/URL.
+    - ``m3 -> Azure Security Alerts Listing`` lists all security alerts associated to **all** subscriptions available.
+    - ``m4 -> Azure VM Encryption Enumerator`` checks all Subscriptions and VMs available for the ADE (Azure Disk Encryption) and EncryptionAtHost features.
     
   - **Google Cloud Platform**: 
     - ``g1 - GCP_VM_Instances`` lists all VM instances in **one** project and **one** or **all** regions. 
