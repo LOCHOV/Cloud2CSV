@@ -11,4 +11,3 @@ azure-mgmt-security
 google-cloud
 google-auth
 termcolor
-s:wqss
