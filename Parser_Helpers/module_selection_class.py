@@ -7,7 +7,10 @@ class user_selection:
         self.message = message
 
     def aws_selected(self):
-        title(self.script, "aws")
+        # if the user just wrote "a", dont display script banner
+        if self.script != "a":
+            title(self.script, "aws")
+        # run chosen script
         if self.script == "a1":
             import AWS.aws_ec2_inventory_csv
             AWS.aws_ec2_inventory_csv.main()
@@ -24,19 +27,23 @@ class user_selection:
             import AWS.aws_s3_inventory_csv
             AWS.aws_s3_inventory_csv.main()
         elif self.script == "a6":
-            import AWS.AWS_SecurityHub_CIS_csv
-            AWS.AWS_SecurityHub_CIS_csv.main()
+            import AWS.aws_securityhub_cis_csv
+            AWS.aws_securityhub_cis_csv.main()
         elif self.script == "a7":
-            import AWS.AWS_SecurityHubCollector_csv
-            AWS.AWS_SecurityHubCollector_csv.main()
+            import AWS.aws_securityhubcollector_csv
+            AWS.aws_securityhubcollector_csv.main()
         elif self.script == "a8":
             import AWS.aws_subnets_inventory_csv
             AWS.aws_subnets_inventory_csv.main()
+        elif self.script == "a9":
+            import AWS.aws_s3_list_files_csv
+            AWS.aws_s3_list_files_csv.main()
         else:
             print(self.message)
 
     def azure_selected(self):
-        title(self.script, "azure")
+        if self.script != "m":
+            title(self.script, "azure")
         if self.script == "m1":
             import AZR.azure_vm_inventory_csv
             AZR.azure_vm_inventory_csv.main()
@@ -53,7 +60,8 @@ class user_selection:
             print(self.message)
 
     def gcp_selected(self):
-        title(self.script, "gcp")
+        if self.script != "g":
+            title(self.script, "gcp")
         if self.script == "g1":
             import GCP.gcp_vm_inventory_csv
             GCP.gcp_vm_inventory_csv.main()

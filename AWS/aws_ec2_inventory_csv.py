@@ -1,14 +1,19 @@
 import boto3
 import csv
 from botocore.exceptions import ClientError
+from botocore.exceptions import EndpointConnectionError
 from boto3.session import Session
 
 
 """ GENERATE A LIST OF ALL AVAILABLE REGIONS"""
 def get_regions(service):
     # define regions to scan
-    regions_session = Session()
-    regions_list = regions_session.get_available_regions(service)
+    region_choice = input("Name region to scan (e.g. eu-central-1) \n or ALL/all to scan all regions available: ")
+    if region_choice == "ALL" or region_choice == "all":
+        regions_session = Session()
+        regions_list = regions_session.get_available_regions(service)
+    else:
+        regions_list = [region_choice]
     return regions_list
 
 
@@ -26,7 +31,11 @@ def get_ec2_info():
 
             # Create EC2 client and call ec2_describe_instances to get all the data for the EC2s in that account
             ec2_client = boto3.Session().client('ec2', region_name=region)
-            ec2_describe_response = ec2_client.describe_instances()
+            try:
+                ec2_describe_response = ec2_client.describe_instances()
+            except EndpointConnectionError as e:
+                print("\nSomething went wrong connecting to AWS. Maybe you chose a wrong region? " + str(e))
+                break
             # loop to handle the ec2 data and store it to the list
             for reservation in ec2_describe_response["Reservations"]:
                 # save the output (dict) to "instance" for better handling
@@ -71,7 +80,7 @@ def get_ec2_info():
                         globallist.append(instanceinfo)
                         print(instanceinfo)
         except ClientError:
-            print("Failure when scanning: " + region)
+            print("Could not connect to: " + region)
     # print(globallist)
     return globallist
 

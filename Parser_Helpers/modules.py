@@ -7,7 +7,9 @@ aws = [
     "a5 -> AWS S3 Bucket Enumerator",
     "a6 -> AWS SecurityHub CIS Findings Listing",
     "a7 -> AWS SecurityHub All Findings Listing",
-    "a8 -> AWS VPC Subnets Enumerator"]
+    "a8 -> AWS VPC Subnets Enumerator",
+    "a9 -> AWS S3 List Files in Bucket"
+]
 
 azure = [
 
