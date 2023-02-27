@@ -7,6 +7,8 @@ import csv
 
 
 """ AUTHENTICATE VIA AZURE CLI CREDENTIALS"""
+
+
 def auth():
     # Acquire a credential object using CLI-based authentication.
     credential = AzureCliCredential()
@@ -16,6 +18,8 @@ def auth():
 
 
 """ GET VM INVENTORY """
+
+
 def get_VMs(auth_data):
     sub_client = auth_data[0]
     credential = auth_data[1]
@@ -38,7 +42,6 @@ def get_VMs(auth_data):
         # get data from all VMs
         vm_list = compute_client.virtual_machines.list_all()
         for vm in vm_list:
-
             vmdata = {}
             vmdata["Name"] = vm.name
             vmdata["ID"] = vm.id
@@ -50,10 +53,12 @@ def get_VMs(auth_data):
             privateIPs = []
             publicIPs = []
             for interface in vm.network_profile.network_interfaces:
-                interface_name = " ".join(interface.id.split('/')[-1:])
-                subscription = "".join(interface.id.split('/')[4])
+                interface_name = " ".join(interface.id.split("/")[-1:])
+                subscription = "".join(interface.id.split("/")[4])
                 try:
-                    configs = network_client.network_interfaces.get(subscription, interface_name).ip_configurations
+                    configs = network_client.network_interfaces.get(
+                        subscription, interface_name
+                    ).ip_configurations
                     for x in configs:
                         try:
                             publicIPs.append(pub_ip_dict.get(x.public_ip_address.id))
@@ -89,10 +94,22 @@ def get_VMs(auth_data):
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(vminventory):
     # Prepare the CSV file
     outputfile = open("Reports/AzureVMs.csv", "w")
-    fieldnames = ["Name", "ID", "Sub_Name", "Sub_ID", "RSG", "AvZone", "privIP", "pubIP", "Image"]
+    fieldnames = [
+        "Name",
+        "ID",
+        "Sub_Name",
+        "Sub_ID",
+        "RSG",
+        "AvZone",
+        "privIP",
+        "pubIP",
+        "Image",
+    ]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()
     # Write the data in
@@ -112,7 +129,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-

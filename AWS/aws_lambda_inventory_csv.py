@@ -5,6 +5,8 @@ from boto3.session import Session
 
 
 """ GENERATE A LIST OF ALL AVAILABLE REGIONS"""
+
+
 def get_regions(service):
     # define regions to scan
     regions_session = Session()
@@ -13,21 +15,23 @@ def get_regions(service):
 
 
 """ GENERATE A LIST OF ALL LAMBDAS"""
+
+
 def get_functions():
     # list to store all of the output for the account
     globallist = []
     # get account id
-    account = boto3.client('sts').get_caller_identity().get('Account')
+    account = boto3.client("sts").get_caller_identity().get("Account")
     # scan each region for the assets
-    regions_list = get_regions('lambda')
+    regions_list = get_regions("lambda")
 
     for region in regions_list:
         try:
             print("checking " + region)
             # Create Client to collect data
-            client = boto3.Session().client('lambda', region_name=region)
+            client = boto3.Session().client("lambda", region_name=region)
             response = client.list_functions()
-            #pp(response)
+            # pp(response)
             for function in response["Functions"]:
                 data = {}
                 data["Name"] = function["FunctionName"]
@@ -37,19 +41,23 @@ def get_functions():
                 except KeyError:
                     data["Runtime"] = ""
                 data["Account"] = account
-                #pp(data)
+                # pp(data)
                 try:
-                    config = client.get_function_configuration(FunctionName=function["FunctionName"])
+                    config = client.get_function_configuration(
+                        FunctionName=function["FunctionName"]
+                    )
                 except KeyError:
                     pass
                 globallist.append(data)
         except ClientError:
-                print("Failure when scanning: " + region)
+            print("Failure when scanning: " + region)
 
     return globallist
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(lambdainventory):
     # Prepare the CSV file
     outputfile = open("Reports/lambdainventory.csv", "w")
@@ -66,8 +74,9 @@ def writetocsv(lambdainventory):
 
 
 def main():
-    lambdainventory = get_functions() # get the inventory
-    writetocsv(lambdainventory) # write the output to CSV
+    lambdainventory = get_functions()  # get the inventory
+    writetocsv(lambdainventory)  # write the output to CSV
+
 
 if __name__ == "__main__":
     main()

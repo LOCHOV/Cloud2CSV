@@ -1,32 +1,50 @@
 import boto3
 import csv
 from botocore.exceptions import ClientError
+from botocore.exceptions import EndpointConnectionError
 from boto3.session import Session
 
 
 """ GENERATE A LIST OF ALL AVAILABLE REGIONS"""
+
+
 def get_regions(service):
     # define regions to scan
-    regions_session = Session()
-    regions_list = regions_session.get_available_regions(service)
+    region_choice = input(
+        "Name region to scan (e.g. eu-central-1) \n or ALL/all to scan all regions available: "
+    )
+    if region_choice == "ALL" or region_choice == "all":
+        regions_session = Session()
+        regions_list = regions_session.get_available_regions(service)
+    else:
+        regions_list = [region_choice]
     return regions_list
 
 
 """ GET THE INVENTORY OF THE VMs """
+
+
 def get_ec2_info():
     # list to store all of the output for the account
     globallist = []
     # get account id
-    account = boto3.client('sts').get_caller_identity().get('Account')
+    account = boto3.client("sts").get_caller_identity().get("Account")
     # scan each region for the assets
-    regions_list = get_regions('ec2')
+    regions_list = get_regions("ec2")
     for region in regions_list:
         try:
             print("checking " + region)
 
             # Create EC2 client and call ec2_describe_instances to get all the data for the EC2s in that account
-            ec2_client = boto3.Session().client('ec2', region_name=region)
-            ec2_describe_response = ec2_client.describe_instances()
+            ec2_client = boto3.Session().client("ec2", region_name=region)
+            try:
+                ec2_describe_response = ec2_client.describe_instances()
+            except EndpointConnectionError as e:
+                print(
+                    "\nSomething went wrong connecting to AWS. Maybe you chose a wrong region? "
+                    + str(e)
+                )
+                break
             # loop to handle the ec2 data and store it to the list
             for reservation in ec2_describe_response["Reservations"]:
                 # save the output (dict) to "instance" for better handling
@@ -43,11 +61,11 @@ def get_ec2_info():
                         try:
                             addplaceholder = True
                             tags = instance["Tags"]
-                            #print(instance[u"PublicIpAddress"])
+                            # print(instance[u"PublicIpAddress"])
                             for item in tags:
-                                if item['Key'] == 'Name':
+                                if item["Key"] == "Name":
                                     addplaceholder = False
-                                    instance_name = item['Value']
+                                    instance_name = item["Value"]
                                     if instance_name == "" or len(instance_name) == 0:
                                         instanceinfo["AWS Name"] = "-"
                                     else:
@@ -63,7 +81,9 @@ def get_ec2_info():
                         instanceinfo["IP Address"] = instance["PrivateIpAddress"]
                         instanceinfo["State"] = instance["State"].get("Name")
                         placement = instance["Placement"]
-                        instanceinfo["Availability Zone"] = placement["AvailabilityZone"]
+                        instanceinfo["Availability Zone"] = placement[
+                            "AvailabilityZone"
+                        ]
                         instanceinfo["AccountID"] = account
                         instanceinfo["AWS Private FQDN"] = instance["PrivateDnsName"]
 
@@ -71,16 +91,26 @@ def get_ec2_info():
                         globallist.append(instanceinfo)
                         print(instanceinfo)
         except ClientError:
-            print("Failure when scanning: " + region)
+            print("Could not connect to: " + region)
     # print(globallist)
     return globallist
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(ec2inventory):
     # Prepare the CSV file
     outputfile = open("Reports/ec2inventory.csv", "w")
-    fieldnames = ["AWS Name", "InstanceID", "IP Address", "State", "Availability Zone", "AccountID", "AWS Private FQDN"]
+    fieldnames = [
+        "AWS Name",
+        "InstanceID",
+        "IP Address",
+        "State",
+        "Availability Zone",
+        "AccountID",
+        "AWS Private FQDN",
+    ]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()
     # Write the data in
@@ -93,10 +123,9 @@ def writetocsv(ec2inventory):
 
 
 def main():
-    ec2inventory = get_ec2_info() # get the inventory
-    writetocsv(ec2inventory) # write the output to CSV
+    ec2inventory = get_ec2_info()  # get the inventory
+    writetocsv(ec2inventory)  # write the output to CSV
 
 
 if __name__ == "__main__":
     main()
-

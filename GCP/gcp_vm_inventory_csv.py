@@ -11,18 +11,22 @@ import google.auth
 
 def get_zones(project_id):
     try:
-        service = discovery.build('compute', 'v1')
+        service = discovery.build("compute", "v1")
     except google.auth.exceptions.DefaultCredentialsError as error:
-        print("Login to GCP failed. Maybe the path provided was not correct or the key is not valid.")
+        print(
+            "Login to GCP failed. Maybe the path provided was not correct or the key is not valid."
+        )
         print("Error message: " + str(error))
         sys.exit(1)
     request = service.zones().list(project=project_id)
     zone_list = []
     while request is not None:
         response = request.execute()
-        for zone in response['items']:
+        for zone in response["items"]:
             zone_list.append(zone["name"])
-        request = service.zones().list_next(previous_request=request, previous_response=response)
+        request = service.zones().list_next(
+            previous_request=request, previous_response=response
+        )
     return zone_list
 
 
@@ -64,7 +68,7 @@ def writetocsv(vm_inventory):
 
 
 def main():
-    """ Specify required inputs """
+    """Specify required inputs"""
     cred = input("Json credential file full path:")
     project = input("Project ID (number):")
     region = input("Region ID (e.g. us-east5-a) or 'all' for each one available:")
@@ -72,12 +76,16 @@ def main():
     if cred == "" or project == "" or region == "":
         print("The input for the credential or project-id was wrong, please retry")
     else:
-        """ Run scripts with the content of the inputs """
+        """Run scripts with the content of the inputs"""
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cred
         if region == "all":
-            zones = get_zones(project)  # if the user selected all, list all available zones
+            zones = get_zones(
+                project
+            )  # if the user selected all, list all available zones
         else:
-            zones = [region]  # if user specified the region, run the script just on that one
+            zones = [
+                region
+            ]  # if user specified the region, run the script just on that one
         """ Run function to list instances and write to CSV"""
         vm_inventory = list_instances(project, zones)
         writetocsv(vm_inventory)

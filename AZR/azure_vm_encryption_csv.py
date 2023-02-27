@@ -20,8 +20,8 @@ def encryption_at_host(credential, sub_client):
     for sub in sub_client.subscriptions.list():
         counter = 0
         sub_id = sub.subscription_id.strip()
-        subprocess.run('az account set --subscription ' + sub_id, shell=True)
-        output = json.loads(subprocess.check_output(cmd, shell=True).decode('utf-8'))
+        subprocess.run("az account set --subscription " + sub_id, shell=True)
+        output = json.loads(subprocess.check_output(cmd, shell=True).decode("utf-8"))
         data = [sub_id, output["properties"]["state"]]
         writer_subs.writerow(data)
         compute_client = ComputeManagementClient(credential, sub_id)
@@ -36,23 +36,23 @@ def encryption_at_host(credential, sub_client):
         print(str(counter) + "   " + sub_id)
 
 
-def azure_disk_encryption(credential,sub_client):
+def azure_disk_encryption(credential, sub_client):
     output_file = open("Reports/ADE_overview_VMs.csv", "w")
     writer = csv.writer(output_file)
     writer.writerow(["Subscription", "VM Name", "ADE-Status"])
     counter = 0
     for sub in sub_client.subscriptions.list():
-        sub_id = sub.subscription_id.strip() # define subscription ID
-        subprocess.run('az account set --subscription ' + sub_id, shell=True)
+        sub_id = sub.subscription_id.strip()  # define subscription ID
+        subprocess.run("az account set --subscription " + sub_id, shell=True)
         compute_client = ComputeManagementClient(credential, sub_id)
         vm_list = compute_client.virtual_machines.list_all()
         for vm in vm_list:
             cmd = "az vm encryption show --ids " + vm.id
             output = subprocess.run(cmd, shell=True, capture_output=True)
             if output.stdout:
-                data = [sub_id, vm.name, output.stdout.decode('utf-8').strip()]
+                data = [sub_id, vm.name, output.stdout.decode("utf-8").strip()]
             elif output.stderr:
-                data = [sub_id, vm.name, output.stderr.decode('utf-8').strip()]
+                data = [sub_id, vm.name, output.stderr.decode("utf-8").strip()]
             writer.writerow(data)
         counter += 1
         print(str(counter) + "   " + sub_id)
@@ -62,9 +62,11 @@ def main():
     credential = AzureCliCredential()
     sub_client = SubscriptionClient(credential)
     print("Checking each Subscription for the 'Encryption at Host' feature")
-    encryption_at_host(credential,sub_client)
-    print("Checking each VM in each Subscription for the 'Azure Disk Encryption' feature")
-    azure_disk_encryption(credential,sub_client)
+    encryption_at_host(credential, sub_client)
+    print(
+        "Checking each VM in each Subscription for the 'Azure Disk Encryption' feature"
+    )
+    azure_disk_encryption(credential, sub_client)
 
 
 if __name__ == "__main__":
