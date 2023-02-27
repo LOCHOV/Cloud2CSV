@@ -5,6 +5,8 @@ from boto3.session import Session
 
 
 """ GENERATE A LIST OF ALL AVAILABLE REGIONS"""
+
+
 def get_regions(service):
     # define regions to scan
     regions_session = Session()
@@ -13,24 +15,26 @@ def get_regions(service):
 
 
 """ COLLECT EC2 SUBNETS INVENTORY """
+
+
 def get_subnets():
     # list to store all of the output for the account
     globallist = []
     # get account id
-    account = boto3.client('sts').get_caller_identity().get('Account')
+    account = boto3.client("sts").get_caller_identity().get("Account")
     # scan each region for the assets
-    regions_list = get_regions('ec2')
+    regions_list = get_regions("ec2")
     for region in regions_list:
         try:
             print("checking " + region)
-            ec2_client = boto3.Session().client('ec2', region_name=region)
+            ec2_client = boto3.Session().client("ec2", region_name=region)
             all_subnets = ec2_client.describe_subnets()
             # loop to handle the subnet data and store it to the dict
             for subnet in all_subnets["Subnets"]:
                 subnetdata = {}
                 subnetdata["SubnetCIDR"] = subnet["CidrBlock"]
                 subnetdata["AccountID"] = subnet["OwnerId"]
-                subnetdata["ARN"] = subnet['SubnetArn']
+                subnetdata["ARN"] = subnet["SubnetArn"]
                 subnetdata["Region"] = region
                 globallist.append(subnetdata)
                 print(subnetdata)
@@ -40,6 +44,8 @@ def get_subnets():
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(subnetinventory):
     # Prepare the CSV file
     outputfile = open("Reports/subnetinventory.csv", "w")
@@ -56,8 +62,8 @@ def writetocsv(subnetinventory):
 
 
 def main():
-    subnetinventory = get_subnets() # get the inventory
-    writetocsv(subnetinventory) # write the output to CSV
+    subnetinventory = get_subnets()  # get the inventory
+    writetocsv(subnetinventory)  # write the output to CSV
 
 
 if __name__ == "__main__":

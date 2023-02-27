@@ -7,6 +7,8 @@ import datetime
 
 
 """ CREATE THE SECURITYCENTER CLIENT"""
+
+
 def create_security_client(subscription, credential):
     # any location will work here. To check the locations run "az account list-locations -o table"
     asc_location = "northeurope"
@@ -16,6 +18,8 @@ def create_security_client(subscription, credential):
 
 
 """ AUTHENTICATION """
+
+
 def auth():
     # Acquire a credential object from the CLI-based authentication.
     credential = AzureCliCredential()
@@ -25,11 +29,23 @@ def auth():
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(data):
     # Prepare the CSV file
-    outputfile = open("Reports/AzureSecurityCenterAlerts.csv", "w", newline='')
-    fieldnames = ["Subscription", "Name", "Description", "status",
-                  "severity", "type", "id", "AffectedAsset","URL", "Time"]
+    outputfile = open("Reports/AzureSecurityCenterAlerts.csv", "w", newline="")
+    fieldnames = [
+        "Subscription",
+        "Name",
+        "Description",
+        "status",
+        "severity",
+        "type",
+        "id",
+        "AffectedAsset",
+        "URL",
+        "Time",
+    ]
     wr = csv.DictWriter(outputfile, fieldnames=fieldnames)
     wr.writeheader()
     # Write the data in
@@ -42,6 +58,8 @@ def writetocsv(data):
 
 
 """ GETS THE SECURITY ALERTS FROM THE SECURITY CENTER"""
+
+
 def security_alerts(auth_data):
     """
     Relevant docs:
@@ -50,14 +68,16 @@ def security_alerts(auth_data):
     """
 
     credential = auth_data[0]
-    sub_client = auth_data[1]  # define the subscription client to be able to go through subscriptions
+    sub_client = auth_data[
+        1
+    ]  # define the subscription client to be able to go through subscriptions
 
     globallist = []  # list to store the content of the alerts
     for sub in sub_client.subscriptions.list():
         sub_id = sub.subscription_id
         sub_name = sub.display_name
         # define the security client with the subscription data and credential
-        security_client = create_security_client(sub_id,credential)
+        security_client = create_security_client(sub_id, credential)
         # get the alerts via the security center client
         request = security_client.alerts.list()
         counter = 0
@@ -70,9 +90,11 @@ def security_alerts(auth_data):
             alert_data["severity"] = alert.severity
             alert_data["type"] = alert.type
             alert_data["id"] = alert.id
-            alert_data["AffectedAsset"] = alert.resource_identifiers[0].azure_resource_id
+            alert_data["AffectedAsset"] = alert.resource_identifiers[
+                0
+            ].azure_resource_id
             alert_data["URL"] = alert.alert_uri
-            alert_data["Time"] = alert.time_generated_utc.strftime('%d/%m/%Y')
+            alert_data["Time"] = alert.time_generated_utc.strftime("%d/%m/%Y")
             globallist.append(alert_data)  # add the fields to the globallist
             counter += 1
         print(str(counter) + " alerts where found on subscription " + sub_name)

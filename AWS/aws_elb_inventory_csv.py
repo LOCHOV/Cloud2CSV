@@ -5,6 +5,8 @@ from boto3.session import Session
 
 
 """ GENERATE A LIST OF ALL AVAILABLE REGIONS"""
+
+
 def get_regions(service):
     # define regions to scan
     regions_session = Session()
@@ -16,13 +18,13 @@ def get_elbs():
     # list to store all of the output for the account
     globallist = []
     # get account id
-    account = boto3.client('sts').get_caller_identity().get('Account')
+    account = boto3.client("sts").get_caller_identity().get("Account")
     # scan each region for the assets
-    regions_list = get_regions('elbv2')
+    regions_list = get_regions("elbv2")
     for region in regions_list:
         try:
             print("checking " + region)
-            client = boto3.Session().client('elbv2', region_name=region)
+            client = boto3.Session().client("elbv2", region_name=region)
             elbs = client.describe_load_balancers()
             # loop to handle the ec2 data and store it to the list
             for elb in elbs["LoadBalancers"]:
@@ -41,6 +43,8 @@ def get_elbs():
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(elbinventory):
     # Prepare the CSV file
     outputfile = open("Reports/elbinventory.csv", "w")
@@ -57,8 +61,9 @@ def writetocsv(elbinventory):
 
 
 def main():
-    elbinventory = get_elbs() # get the inventory
-    writetocsv(elbinventory) # write the output to CSV
+    elbinventory = get_elbs()  # get the inventory
+    writetocsv(elbinventory)  # write the output to CSV
+
 
 if __name__ == "__main__":
     main()

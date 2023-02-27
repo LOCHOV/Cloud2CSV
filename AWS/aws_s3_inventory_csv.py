@@ -5,15 +5,17 @@ from botocore.exceptions import NoCredentialsError
 
 
 """ COLLECT S3 BUCKET INVENTORY """
+
+
 def get_buckets():
     # list to store all of the output for the account
     globallist = []
 
     # get account id
-    account = boto3.client('sts').get_caller_identity().get('Account')
+    account = boto3.client("sts").get_caller_identity().get("Account")
 
     # Create Client to collect data
-    s3_client = boto3.Session().client('s3')
+    s3_client = boto3.Session().client("s3")
     try:
         print("Collecting S3 Buckets...")
         buckets = s3_client.list_buckets()
@@ -23,7 +25,9 @@ def get_buckets():
             bucket_data = {}
             bucket_data["Name"] = bucket["Name"]
             bucket_data["CreationDate"] = str(bucket["CreationDate"])
-            bucket_data["Location"] = s3_client.get_bucket_location(Bucket=bucket["Name"].strip())["LocationConstraint"]
+            bucket_data["Location"] = s3_client.get_bucket_location(
+                Bucket=bucket["Name"].strip()
+            )["LocationConstraint"]
             bucket_data["AccountID"] = account
             # attach everything to the globallist
             globallist.append(bucket_data)
@@ -34,8 +38,9 @@ def get_buckets():
 
 
 """ WRITE DATA TO CSV """
+
+
 def writetocsv(s3inventory):
-    
     # Prepare the CSV file
     outputfile = open("Reports/s3buckets.csv", "w")
     fieldnames = ["Name", "CreationDate", "Location", "AccountID"]
@@ -52,10 +57,12 @@ def writetocsv(s3inventory):
 
 def main():
     try:
-        s3inventory = get_buckets() # get the s3 buckets
+        s3inventory = get_buckets()  # get the s3 buckets
         writetocsv(s3inventory)  # write the output to CSV
     except NoCredentialsError:
-        print("No credentials where found, make sure you are logged in with 'aws configure' or an assumed-role")
+        print(
+            "No credentials where found, make sure you are logged in with 'aws configure' or an assumed-role"
+        )
 
 
 if __name__ == "__main__":
